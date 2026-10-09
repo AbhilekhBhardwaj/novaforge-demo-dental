@@ -7,6 +7,7 @@ import {
 } from "./src/module/design-inspector/vite";
 import svgr from "vite-plugin-svgr";
 import { defineConfig } from "vite";
+import { nitro } from "nitro/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import { fileURLToPath } from "node:url";
 
@@ -75,6 +76,10 @@ export default defineConfig(({ mode, command }) => {
       tanstackStart({
         server: { entry: "server" },
       }),
+      // On Vercel (VERCEL=1 during its build) Nitro re-targets the server bundle to a
+      // Vercel Function and writes .vercel/output, so the TanStack Start preset needs
+      // no vercel.json. Everywhere else the Workers build above is left untouched.
+      process.env.VERCEL ? nitro() : null,
       higgsfieldDesignInspectorVitePlugin(designInspectorEnabled),
       react({
         babel: {
