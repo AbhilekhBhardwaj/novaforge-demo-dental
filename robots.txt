@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://brightwell-family-dental.higgsfield.app/sitemap.xml
